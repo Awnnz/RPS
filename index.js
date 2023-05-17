@@ -12,6 +12,14 @@ function getComputerChoice() {
     if (rng === 3) return options[2];
 }
 
+function askUserChoice() {
+    let playerChoice = prompt('rock, paper, or scissors?').toLocaleLowerCase()
+    while (['rock', 'paper', 'scissors'].indexOf(playerChoice) === -1) {
+        playerChoice = prompt('Invalid Answer! rock, paper, or scissors?').toLowerCase()
+    }
+    return playerChoice;
+}
+
 let rps = (playerChoice, computerChoice) => {
     let lose = `You lose! You chose ${playerChoice} and the computer chose ${computerChoice}`
     let win = `You win! You chose ${playerChoice} and the computer chose ${computerChoice}`
@@ -25,12 +33,23 @@ let rps = (playerChoice, computerChoice) => {
     else return win;
 }
 
-function askUserChoice() {
-    let playerChoice = prompt('rock, paper, or scissors?').toLocaleLowerCase()
-    while (['rock', 'paper', 'scissors'].indexOf(playerChoice) === -1) {
-        playerChoice = prompt('Invalid Answer! rock, paper, or scissors?').toLowerCase()
+function game() {
+    let playerScore = 0;
+    let computerScore = 0;
+
+    while (playerScore < 5 && computerScore < 5) {
+        let fullResult = rps(askUserChoice(), getComputerChoice())
+        let result = fullResult.slice(4,7);
+        if (result == 'win') playerScore++
+        else computerScore++
+        console.log(fullResult)
+        console.log(`Your score: ${playerScore}`)
+        console.log(`Cpu score: ${computerScore}`)
     }
-    return playerChoice;
+
+    if (playerScore = 5) console.log('Game Over! You win it all!')
+    else console.log('Game Over! You lose it all!')
 }
 
-console.log(rps(askUserChoice(), getComputerChoice()));
+game();
+
